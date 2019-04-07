@@ -14,7 +14,7 @@ For the full list check [Projects](https://github.com/Oskarr1239/krynn-sql/proje
 The Krynn-SQL is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
 ## Ideas and bugs
-if have you idea or bug, please write [here](https://github.com/Oskarr1239/krynn-sql/issues).
+If you have any issues or suggestions, please submit them [here](https://github.com/Oskarr1239/krynn-sql/issues).
 
 [travis]: https://travis-ci.org/Oskarr1239/krynn-sql
 [travis img]: https://travis-ci.org/Oskarr1239/krynn-sql.svg?branch=master
