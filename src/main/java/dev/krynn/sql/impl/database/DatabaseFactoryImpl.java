@@ -16,6 +16,7 @@
 
 package dev.krynn.sql.impl.database;
 
+import com.google.common.cache.Cache;
 import dev.krynn.sql.connection.DatabaseConnection;
 import dev.krynn.sql.database.Database;
 import dev.krynn.sql.database.DatabaseFactory;
@@ -24,10 +25,14 @@ import dev.krynn.sql.query.Query;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseFactoryImpl implements DatabaseFactory {
 
     private DatabaseConnection connection;
+
+    private List<String> databases = new ArrayList<>();
 
     public DatabaseFactoryImpl(DatabaseConnection connection) {
         this.connection = connection;
@@ -40,16 +45,18 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
 
     @Override
     public Database getOrCreate(String name) {
-        //TODO soon
-        throw new UnsupportedOperationException();
+        if(!databases.contains(name)) {
+            create(name);
+        }
+        return get(name);
     }
 
     @Override
     public void create(String name) {
         try(Connection con = connection.connection()) {
-            PreparedStatement statement = con.prepareStatement(Query.CREATE_DATABASE);
-            statement.setString(1, name);
+            PreparedStatement statement = con.prepareStatement(String.format(Query.CREATE_DATABASE, name));
             statement.executeUpdate();
+            databases.add(name);
         } catch (SQLException e) {
             e.printStackTrace();
         }

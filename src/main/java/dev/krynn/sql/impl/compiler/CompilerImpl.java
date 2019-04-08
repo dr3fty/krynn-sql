@@ -137,6 +137,14 @@ public class CompilerImpl implements Compiler {
     }
 
     @Override
+    public <T> CompiledTemplate findOrCreate(Class<T> clazz) {
+        if(findTemplate(clazz) == null) {
+            compile(clazz);
+        }
+        return findTemplate(clazz);
+    }
+
+    @Override
     public CompiledTemplate findTemplate(Type type) {
         return this.templateMap.get(type);
     }

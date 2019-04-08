@@ -24,6 +24,8 @@ import dev.krynn.sql.database.DatabaseFactory;
 import dev.krynn.sql.impl.compiler.CompilerImpl;
 import dev.krynn.sql.impl.connection.DatabaseConnectionImpl;
 import dev.krynn.sql.impl.database.DatabaseFactoryImpl;
+import dev.krynn.sql.impl.table.TableFactoryImpl;
+import dev.krynn.sql.table.TableFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -33,14 +35,16 @@ public class KrynnSQL {
     private static Compiler compiler = new CompilerImpl();
     private static DatabaseConnection connection = new DatabaseConnectionImpl();
     private static DatabaseFactory databaseFactory;
+    private static TableFactory tableFactory;
 
     public static void initialize(HikariConfig config) {
         connection.config(config);
         databaseFactory = new DatabaseFactoryImpl(connection);
+        tableFactory = new TableFactoryImpl(connection);
     }
 
     public static Database getDatabase(String name) {
-        return databaseFactory.get(name);
+        return databaseFactory.getOrCreate(name);
     }
 
     public static Connection getConnection() throws SQLException {
@@ -49,6 +53,10 @@ public class KrynnSQL {
 
     public static Compiler getCompiler() {
         return compiler;
+    }
+
+    public static TableFactory getTableFactory() {
+        return tableFactory;
     }
 
     public static DatabaseFactory getDatabaseFactory() {

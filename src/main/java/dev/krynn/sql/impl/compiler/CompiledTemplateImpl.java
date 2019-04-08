@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class CompiledTemplateImpl implements CompiledTemplate {
 
-    private Map<String, CompiledField> fieldMap = new HashMap<>();
+    private Map<String, CompiledField> fieldMap;
     private String primaryKey;
     private String table;
 

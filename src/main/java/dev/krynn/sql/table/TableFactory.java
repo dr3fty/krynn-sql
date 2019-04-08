@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-package dev.krynn.sql.query;
+package dev.krynn.sql.table;
 
-public class QueryBuilder {
-    //TODO
+import dev.krynn.sql.database.Database;
+
+public interface TableFactory {
+
+    <T> Table<T> get(Database database, Class<T> type);
+
+    <T> Table<T> getOrCreate(Database database, Class<T> type);
+
+    <T> void create(Database database, Class<T> type);
 }

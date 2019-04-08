@@ -16,6 +16,7 @@
 
 package dev.krynn.sql.impl.database;
 
+import dev.krynn.sql.KrynnSQL;
 import dev.krynn.sql.database.Database;
 import dev.krynn.sql.impl.table.TableImpl;
 import dev.krynn.sql.table.Table;
@@ -33,7 +34,7 @@ public class DatabaseImpl implements Database {
 
     @Override
     public <T> Table<T> table(Class<T> type) {
-        return new TableImpl<>(this, type);
+        return KrynnSQL.getTableFactory().getOrCreate(this, type);
     }
 
     @Override

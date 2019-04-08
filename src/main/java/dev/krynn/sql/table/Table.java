@@ -29,6 +29,4 @@ public interface Table<T> {
 
     void update(T type);
 
-    boolean check();
-
 }

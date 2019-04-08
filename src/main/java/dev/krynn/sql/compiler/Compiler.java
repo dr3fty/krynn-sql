@@ -29,6 +29,8 @@ public interface Compiler {
 
     <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler);
 
+    <T> CompiledTemplate findOrCreate(Class<T> clazz);
+
     CompiledTemplate findTemplate(Type type);
 
     DataCompiler<?, ?> findDataCompiler(Type type);

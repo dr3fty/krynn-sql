@@ -19,12 +19,11 @@ package dev.krynn.sql.impl.table;
 import com.google.common.reflect.TypeToken;
 import dev.krynn.sql.KrynnSQL;
 import dev.krynn.sql.database.Database;
-import dev.krynn.sql.query.QueryBuilder;
 import dev.krynn.sql.table.Table;
+import dev.krynn.sql.util.QueryUtil;
 
 import java.lang.reflect.Type;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -77,13 +76,9 @@ public class TableImpl<T> implements Table<T> {
             if(KrynnSQL.getCompiler().findTemplate(objectType) == null) {
                 KrynnSQL.getCompiler().compile(type.getClass());
             }
-            QueryBuilder.update(this.database.name(), connection, type, objectType).executeUpdate();
+            QueryUtil.update(this.database.name(), connection, type, objectType).executeUpdate();
         } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    public boolean check() {
-        return true;
     }
 }
