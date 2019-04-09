@@ -18,6 +18,7 @@ package dev.krynn.sql;
 
 import com.zaxxer.hikari.HikariConfig;
 import dev.krynn.sql.compiler.Compiler;
+import dev.krynn.sql.compiler.data.DataCompiler;
 import dev.krynn.sql.connection.DatabaseConnection;
 import dev.krynn.sql.database.Database;
 import dev.krynn.sql.database.DatabaseFactory;
@@ -27,6 +28,7 @@ import dev.krynn.sql.impl.database.DatabaseFactoryImpl;
 import dev.krynn.sql.impl.table.TableFactoryImpl;
 import dev.krynn.sql.table.TableFactory;
 
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -45,6 +47,10 @@ public class KrynnSQL {
 
     public static Database getDatabase(String name) {
         return databaseFactory.getOrCreate(name);
+    }
+
+    public static <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives) {
+        compiler.registerDataCompiler(dataCompiler, primitives);
     }
 
     public static Connection getConnection() throws SQLException {
