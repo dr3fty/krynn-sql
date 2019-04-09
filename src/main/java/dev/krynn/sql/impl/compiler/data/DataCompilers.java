@@ -18,6 +18,8 @@ package dev.krynn.sql.impl.compiler.data;
 
 import dev.krynn.sql.compiler.data.DataCompiler;
 
+import java.util.UUID;
+
 public class DataCompilers {
 
     public static final DataCompiler<String, Object> OBJECT_COMPILER = new ObjectCompiler();
@@ -25,6 +27,7 @@ public class DataCompilers {
     public static final DataCompiler<Integer, Integer> INT_COMPILER = new IntCompiler();
     public static final DataCompiler<Long, Long> LONG_COMPILER = new LongCompiler();
     public static final DataCompiler<Boolean, Boolean> BOOLEAN_COMPILER = new BooleanCompiler();
+    public static final DataCompiler<String, UUID> UUID_COMPILER = new UUIDCompiler();
 
     public static class ObjectCompiler implements DataCompiler<String, Object> {
         @Override
@@ -88,6 +91,19 @@ public class DataCompilers {
         @Override
         public Boolean decompile(Boolean toDecompile) {
             return toDecompile;
+        }
+    }
+
+    public static class UUIDCompiler implements DataCompiler<String, UUID> {
+
+        @Override
+        public String compile(UUID original) {
+            return original.toString();
+        }
+
+        @Override
+        public UUID decompile(String toDecompile) {
+            return UUID.fromString(toDecompile);
         }
     }
 

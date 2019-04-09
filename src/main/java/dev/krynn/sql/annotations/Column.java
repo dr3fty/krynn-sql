@@ -31,7 +31,7 @@ public @interface Column {
     String sqlType() default "";
 
     /**
-     * Numeric type of #sqlType
+     * Numeric compilerType of #sqlType
      * @see java.sql.Types
      */
     int numericType() default Integer.MAX_VALUE;

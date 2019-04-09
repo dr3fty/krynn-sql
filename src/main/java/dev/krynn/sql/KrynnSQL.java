@@ -62,5 +62,4 @@ public class KrynnSQL {
     public static DatabaseFactory getDatabaseFactory() {
         return databaseFactory;
     }
-
 }

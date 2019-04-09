@@ -25,7 +25,11 @@ public interface DataCompiler<T, I> {
 
     I decompile(T toDecompile);
 
-    default Type type() {
+    default Type compilerType() {
         return ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[1];
+    }
+
+    default Type decompilerType() {
+        return ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
     }
 }

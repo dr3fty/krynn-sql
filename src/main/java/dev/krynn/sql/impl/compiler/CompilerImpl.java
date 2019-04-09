@@ -16,7 +16,6 @@
 
 package dev.krynn.sql.impl.compiler;
 
-import com.google.common.reflect.Reflection;
 import com.google.common.reflect.TypeToken;
 import dev.krynn.sql.annotations.Column;
 import dev.krynn.sql.annotations.PrimaryKey;
@@ -31,12 +30,10 @@ import dev.krynn.sql.impl.compiler.field.CompiledFieldImpl;
 import org.reflections.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Stream;
 
 import static dev.krynn.sql.impl.compiler.data.DataCompilers.*;
 
@@ -52,6 +49,7 @@ public class CompilerImpl implements Compiler {
         registerDataCompiler(STRING_COMPILER);
         registerDataCompiler(LONG_COMPILER, long.class);
         registerDataCompiler(BOOLEAN_COMPILER, boolean.class);
+        registerDataCompiler(UUID_COMPILER);
     }
 
     @Override
@@ -66,9 +64,9 @@ public class CompilerImpl implements Compiler {
         ReflectionUtils.getFields(clazz, input -> Objects.requireNonNull(input).isAnnotationPresent(Column.class)).forEach(field -> {
             Column annotation = field.getAnnotation(Column.class);
             String name = annotation.name();
-            DataType dataType = DataType.getType(field.getDeclaringClass());
+            DataType dataType = DataType.getType(field.getType());
             String sqlType = dataType.getSqlType();
-            Integer numericType = dataType.getNumericType();
+            int numericType = dataType.getNumericType();
             DataCompiler<?, ?> dataCompiler = findDataCompiler(field.getGenericType());
             boolean primaryKey = false;
 
@@ -120,7 +118,7 @@ public class CompilerImpl implements Compiler {
                 try {
                     Field field = compiledField.field();
                     field.setAccessible(true);
-                    field.set(t, tryDecompile(compiledField.dataCompiler(), resultSet.getObject(compiledField.name(), compiledField.field().getType())));
+                    field.set(t, tryDecompile(compiledField.dataCompiler(), resultSet.getObject(compiledField.name(), (Class<?>) compiledField.dataCompiler().decompilerType())));
                 } catch (IllegalAccessException | SQLException e) {
                     e.printStackTrace();
                 }
@@ -133,7 +131,7 @@ public class CompilerImpl implements Compiler {
 
     @Override
     public <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives) {
-        this.dataCompilerMap.put(dataCompiler.type(), dataCompiler);
+        this.dataCompilerMap.put(dataCompiler.compilerType(), dataCompiler);
         for(Type type : primitives) {
             this.dataCompilerMap.put(type, dataCompiler);
         }
