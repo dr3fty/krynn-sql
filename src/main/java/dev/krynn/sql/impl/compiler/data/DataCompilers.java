@@ -28,6 +28,9 @@ public class DataCompilers {
     public static final DataCompiler<Long, Long> LONG_COMPILER = new LongCompiler();
     public static final DataCompiler<Boolean, Boolean> BOOLEAN_COMPILER = new BooleanCompiler();
     public static final DataCompiler<String, UUID> UUID_COMPILER = new UUIDCompiler();
+    public static final DataCompiler<Short, Short> SHORT_COMPILER = new ShortCompiler();
+    public static final DataCompiler<Double, Double> DOUBLE_COMPILER = new DoubleCompiler();
+    public static final DataCompiler<Float, Float> FLOAT_COMPILER = new FloatCompiler();
 
     public static class ObjectCompiler implements DataCompiler<String, Object> {
         @Override
@@ -104,6 +107,45 @@ public class DataCompilers {
         @Override
         public UUID decompile(String toDecompile) {
             return UUID.fromString(toDecompile);
+        }
+    }
+
+    public static class ShortCompiler implements DataCompiler<Short, Short> {
+
+        @Override
+        public Short compile(Short original) {
+            return original;
+        }
+
+        @Override
+        public Short decompile(Short toDecompile) {
+            return toDecompile;
+        }
+    }
+
+    public static class DoubleCompiler implements DataCompiler<Double, Double> {
+
+        @Override
+        public Double compile(Double original) {
+            return original;
+        }
+
+        @Override
+        public Double decompile(Double toDecompile) {
+            return toDecompile;
+        }
+    }
+
+    public static class FloatCompiler implements DataCompiler<Float, Float> {
+
+        @Override
+        public Float compile(Float original) {
+            return original;
+        }
+
+        @Override
+        public Float decompile(Float toDecompile) {
+            return toDecompile;
         }
     }
 

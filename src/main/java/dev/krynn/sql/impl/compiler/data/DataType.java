@@ -17,7 +17,6 @@
 package dev.krynn.sql.impl.compiler.data;
 
 import java.sql.Types;
-import java.util.UUID;
 
 public enum DataType {
 
@@ -26,6 +25,9 @@ public enum DataType {
     LONG("BIGINT", Types.BIGINT, Long.class, long.class),
     BOOLEAN("TYNYINT(1)", Types.TINYINT, Boolean.class, boolean.class),
     UUID("VARCHAR(36)", Types.VARCHAR, java.util.UUID.class),
+    SHORT("SMALLINT", Types.SMALLINT, Short.class, short.class),
+    DOUBLE("DOUBLE", Types.DOUBLE, Double.class, double.class),
+    FLOAT("FLOAT", Types.FLOAT, Float.class, float.class),
     //Always last :XD:
     OBJECT("LONGTEXT", Types.LONGVARCHAR, Object.class);
 

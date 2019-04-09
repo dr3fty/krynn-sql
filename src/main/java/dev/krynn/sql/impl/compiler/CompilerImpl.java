@@ -50,6 +50,9 @@ public class CompilerImpl implements Compiler {
         registerDataCompiler(LONG_COMPILER, long.class);
         registerDataCompiler(BOOLEAN_COMPILER, boolean.class);
         registerDataCompiler(UUID_COMPILER);
+        registerDataCompiler(SHORT_COMPILER, short.class);
+        registerDataCompiler(FLOAT_COMPILER, float.class);
+        registerDataCompiler(DOUBLE_COMPILER, double.class);
     }
 
     @Override
