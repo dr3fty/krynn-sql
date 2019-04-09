@@ -6,7 +6,6 @@ Simple java framework like ORM to build sql requests, based on annotations.
 ## TODO
 - Create documentation friendly for new developers.
 - Implement cache system.
-- Add support to primitives.
 
 For the full list check [Projects](https://github.com/Oskarr1239/krynn-sql/projects/3).
 
@@ -22,5 +21,5 @@ If you have any issues or suggestions, please submit them [here](https://github.
 [license]:https://opensource.org/licenses/Apache-2.0
 [license img]:https://img.shields.io/badge/License-Apache%202.0-blue.svg
 
-[discord]: https://discord.gg/gKeSxtZ
+[discord]: https://discord.gg/RkyqMdF
 [discord img]: https://img.shields.io/discord/563074773110882304.svg
