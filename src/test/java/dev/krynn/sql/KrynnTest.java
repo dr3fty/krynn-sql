@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class KrynnTest {
 
@@ -50,6 +51,17 @@ public class KrynnTest {
         SecondUser build = compiler.build(SecondUser.class, new AbstractResultSet());
 
         assertEquals("testxd", build.getTest2());
+    }
+
+    @Test
+    void primitivesTest() {
+        Compiler compiler = new CompilerImpl();
+
+        ThirdUser user = compiler.build(ThirdUser.class, new AbstractResultSet());
+
+        assertEquals("test", user.getString());
+        assertEquals(2115, user.getPrimitive());
+        assertTrue(user.isToo());
     }
 
     public static class CustomCompiler implements DataCompiler<String, String> {

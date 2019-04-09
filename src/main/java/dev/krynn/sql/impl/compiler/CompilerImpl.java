@@ -48,10 +48,10 @@ public class CompilerImpl implements Compiler {
 
     {
         registerDataCompiler(OBJECT_COMPILER);
-        registerDataCompiler(INT_COMPILER);
+        registerDataCompiler(INT_COMPILER, int.class);
         registerDataCompiler(STRING_COMPILER);
-        registerDataCompiler(LONG_COMPILER);
-        registerDataCompiler(BOOLEAN_COMPILER);
+        registerDataCompiler(LONG_COMPILER, long.class);
+        registerDataCompiler(BOOLEAN_COMPILER, boolean.class);
     }
 
     @Override
@@ -132,8 +132,11 @@ public class CompilerImpl implements Compiler {
     }
 
     @Override
-    public <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler) {
+    public <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives) {
         this.dataCompilerMap.put(dataCompiler.type(), dataCompiler);
+        for(Type type : primitives) {
+            this.dataCompilerMap.put(type, dataCompiler);
+        }
     }
 
     @Override
@@ -154,6 +157,7 @@ public class CompilerImpl implements Compiler {
         return dataCompilerMap.get(type);
     }
 
+    @SuppressWarnings("unchecked")
     private <T, I> I tryDecompile(DataCompiler<T, I> dataCompiler, Object o) {
         //idc
         return dataCompiler.decompile((T) o);

@@ -27,7 +27,7 @@ public interface Compiler {
 
     <C> C build(Class<C> clazz, ResultSet resultSet);
 
-    <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler);
+    <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives);
 
     <T> CompiledTemplate findOrCreate(Class<T> clazz);
 

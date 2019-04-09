@@ -20,18 +20,18 @@ import java.sql.Types;
 
 public enum DataType {
 
-    STRING(String.class, "LONGTEXT", Types.LONGVARCHAR),
-    INT(Integer.class, "INT", Types.INTEGER),
-    LONG(Long.class, "BIGINT", Types.BIGINT),
-    BOOLEAN(Boolean.class, "TYNYINT(1)", Types.TINYINT),
+    STRING("LONGTEXT", Types.LONGVARCHAR, String.class),
+    INT("INT", Types.INTEGER, Integer.class, int.class),
+    LONG("BIGINT", Types.BIGINT, Long.class, long.class),
+    BOOLEAN("TYNYINT(1)", Types.TINYINT, Boolean.class, boolean.class),
     //Always last :XD:
-    OBJECT(Object.class, "LONGTEXT", Types.LONGVARCHAR);
+    OBJECT("LONGTEXT", Types.LONGVARCHAR, Object.class);
 
-    private Class<?> clazz;
+    private Class<?>[] clazz;
     private String sqlType;
     private int numericType;
 
-    DataType(Class<?> clazz, String sqlType, int numericType) {
+    DataType(String sqlType, int numericType, Class<?>... clazz) {
         this.clazz = clazz;
         this.sqlType = sqlType;
         this.numericType = numericType;
@@ -39,13 +39,14 @@ public enum DataType {
 
     public static DataType getType(Class<?> clazz) {
         for (DataType value : values()) {
-            if(clazz.equals(value.getClazz())) return value;
+            for(Class<?> valueClass : value.getClazz()) {
+                if(clazz.equals(valueClass)) return value;
+            }
         }
-
         return OBJECT;
     }
 
-    public Class<?> getClazz() {
+    public Class<?>[] getClazz() {
         return clazz;
     }
 

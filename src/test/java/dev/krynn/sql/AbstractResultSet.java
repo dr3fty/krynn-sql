@@ -351,11 +351,14 @@ public class AbstractResultSet implements ResultSet {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
         if (type.equals(String.class)) {
             return (T) "test";
-        } else if (type.equals(Integer.class)) {
+        } else if (type.equals(Integer.class) || type.equals(int.class)) {
             return (T) ((Integer) 2115);
+        } else if(type.equals(Boolean.class) || type.equals(boolean.class)) {
+            return (T) ((Boolean) true);
         }
         return null;
     }

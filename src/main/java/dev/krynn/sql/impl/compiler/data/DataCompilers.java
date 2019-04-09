@@ -24,7 +24,7 @@ public class DataCompilers {
     public static final DataCompiler<String, String> STRING_COMPILER = new StringCompiler();
     public static final DataCompiler<Integer, Integer> INT_COMPILER = new IntCompiler();
     public static final DataCompiler<Long, Long> LONG_COMPILER = new LongCompiler();
-    public static final DataCompiler<Integer, Boolean> BOOLEAN_COMPILER = new BooleanCompiler();
+    public static final DataCompiler<Boolean, Boolean> BOOLEAN_COMPILER = new BooleanCompiler();
 
     public static class ObjectCompiler implements DataCompiler<String, Object> {
         @Override
@@ -77,16 +77,17 @@ public class DataCompilers {
         }
     }
 
-    public static class BooleanCompiler implements DataCompiler<Integer, Boolean> {
+    public static class BooleanCompiler implements DataCompiler<Boolean, Boolean> {
+        //Dont ask
 
         @Override
-        public Integer compile(Boolean original) {
-            return original ? 1 : 0;
+        public Boolean compile(Boolean original) {
+            return original;
         }
 
         @Override
-        public Boolean decompile(Integer toDecompile) {
-            return toDecompile == 1;
+        public Boolean decompile(Boolean toDecompile) {
+            return toDecompile;
         }
     }
 
