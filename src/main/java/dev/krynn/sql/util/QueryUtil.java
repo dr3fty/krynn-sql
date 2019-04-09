@@ -80,7 +80,7 @@ public class QueryUtil {
                 .collect(Collectors.joining(", "));
 
         types += String.format(", PRIMARY KEY(%s)", template.primaryKey());
-        System.out.println(types);
+
         return connection.prepareStatement(String.format(Query.CREATE_TABLE, name, types));
     }
 
