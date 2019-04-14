@@ -25,10 +25,10 @@ import java.util.Map;
 public class CompiledTemplateImpl implements CompiledTemplate {
 
     private Map<String, CompiledField> fieldMap;
-    private String primaryKey;
+    private CompiledField primaryKey;
     private String table;
 
-    public CompiledTemplateImpl(Map<String, CompiledField> fieldMap, String primaryKey, String table) {
+    public CompiledTemplateImpl(Map<String, CompiledField> fieldMap, CompiledField primaryKey, String table) {
         this.fieldMap = fieldMap;
         this.primaryKey = primaryKey;
         this.table = table;
@@ -50,7 +50,7 @@ public class CompiledTemplateImpl implements CompiledTemplate {
     }
 
     @Override
-    public String primaryKey() {
+    public CompiledField primaryKey() {
         return this.primaryKey;
     }
 
@@ -61,7 +61,7 @@ public class CompiledTemplateImpl implements CompiledTemplate {
 
     public static final class Builder {
         private Map<String, CompiledField> fieldMap;
-        private String primaryKey;
+        private CompiledField primaryKey;
         private String table;
 
         private Builder() {
@@ -72,7 +72,7 @@ public class CompiledTemplateImpl implements CompiledTemplate {
             return this;
         }
 
-        public Builder primaryKey(String val) {
+        public Builder primaryKey(CompiledField val) {
             primaryKey = val;
             return this;
         }

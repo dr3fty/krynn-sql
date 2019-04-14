@@ -24,6 +24,7 @@ import dev.krynn.sql.util.QueryUtil;
 
 import java.lang.reflect.Type;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -80,5 +81,10 @@ public class TableImpl<T> implements Table<T> {
         } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String name() {
+        return KrynnSQL.getCompiler().findOrCreate(this.clazz).table();
     }
 }

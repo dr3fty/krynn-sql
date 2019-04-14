@@ -93,10 +93,17 @@ public class CompilerImpl implements Compiler {
             if(field.isAnnotationPresent(PrimaryKey.class)) {
                 primaryKey = true;
             }
-            compiledFieldMap.put(name, CompiledFieldImpl.newBuilder().name(name).sqlType(sqlType).numericType(numericType).dataCompiler(dataCompiler).field(field).primaryKey(primaryKey).build());
+            compiledFieldMap.put(name, CompiledFieldImpl.newBuilder()
+                    .name(name)
+                    .sqlType(sqlType)
+                    .numericType(numericType)
+                    .dataCompiler(dataCompiler)
+                    .field(field)
+                    .primaryKey(primaryKey)
+                    .build());
         });
 
-        String primaryKey = compiledFieldMap.entrySet().stream().filter(ftr -> ftr.getValue().isPrimary()).findFirst().get().getKey();
+        CompiledField primaryKey = compiledFieldMap.entrySet().stream().filter(ftr -> ftr.getValue().isPrimary()).findFirst().get().getValue();
 
         CompiledTemplate template = CompiledTemplateImpl.newBuilder()
                 .fieldMap(compiledFieldMap)

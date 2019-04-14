@@ -24,7 +24,7 @@ public interface CompiledTemplate {
 
     Map<String, CompiledField> compiledFields();
 
-    String primaryKey();
+    CompiledField primaryKey();
 
     String table();
 }

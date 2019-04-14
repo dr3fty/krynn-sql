@@ -79,7 +79,7 @@ public class QueryUtil {
                 .map(compiledField -> compiledField.getKey() + " " + compiledField.getValue().sqlType())
                 .collect(Collectors.joining(", "));
 
-        types += String.format(", PRIMARY KEY(%s)", template.primaryKey());
+        types += String.format(", PRIMARY KEY(%s)", template.primaryKey().name());
 
         return connection.prepareStatement(String.format(Query.CREATE_TABLE, name, types));
     }

@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package dev.krynn.sql.table;
+package dev.krynn.sql.table.cache;
 
-import java.sql.PreparedStatement;
-import java.util.List;
+import dev.krynn.sql.table.Table;
 
-public interface Table<T> {
+public interface CacheableTable<T> extends Table<T> {
 
-    List<T> query(T type);
+    void cache(T object);
 
-    List<T> query(String query);
+    void clear();
 
-    void update(String query);
+    void invalidate(T object);
 
-    void update(T type);
-
-    String name();
-
+    T cachedQuery(Object key);
 }

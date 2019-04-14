@@ -23,4 +23,6 @@ public class Query {
     public static final String CREATE_OR_UPDATE = "INSERT INTO %s (%s) VALUES(%s) ON DUPLICATE KEY UPDATE %s;";
 
     public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS %s (%s)";
+
+    public static final String SELECT_OBJECT = "SELECT * FROM %s WHERE %s = ?";
 }
