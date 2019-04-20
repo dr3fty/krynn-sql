@@ -17,6 +17,7 @@
 package dev.krynn.sql.impl.compiler.data;
 
 import dev.krynn.sql.compiler.data.DataCompiler;
+import dev.krynn.sql.impl.compiler.exception.CompilerException;
 
 import java.util.UUID;
 
@@ -35,12 +36,12 @@ public class DataCompilers {
     public static class ObjectCompiler implements DataCompiler<String, Object> {
         @Override
         public String compile(Object original) {
-            return original.toString();
+            throw new CompilerException("type not supported");
         }
 
         @Override
         public Object decompile(String toDecompile) {
-            return toDecompile;
+            throw new CompilerException("type not supported");
         }
     }
 

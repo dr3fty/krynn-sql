@@ -17,6 +17,7 @@
 package dev.krynn.sql.impl.database;
 
 import com.google.common.cache.Cache;
+import dev.krynn.sql.KrynnSQL;
 import dev.krynn.sql.connection.DatabaseConnection;
 import dev.krynn.sql.database.Database;
 import dev.krynn.sql.database.DatabaseFactory;
@@ -32,15 +33,18 @@ public class DatabaseFactoryImpl implements DatabaseFactory {
 
     private DatabaseConnection connection;
 
+    private KrynnSQL krynnSQL;
+
     private List<String> databases = new ArrayList<>();
 
-    public DatabaseFactoryImpl(DatabaseConnection connection) {
+    public DatabaseFactoryImpl(KrynnSQL krynnSQL, DatabaseConnection connection) {
         this.connection = connection;
+        this.krynnSQL = krynnSQL;
     }
 
     @Override
     public Database get(String name) {
-        return new DatabaseImpl(name);
+        return new DatabaseImpl(krynnSQL, name);
     }
 
     @Override

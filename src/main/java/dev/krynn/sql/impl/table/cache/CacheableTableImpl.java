@@ -39,9 +39,11 @@ public class CacheableTableImpl<T> implements CacheableTable<T> {
     private Map<Object, T> cacheMap = new HashMap<>();
     private CompiledField primaryKey;
     private Class<T> clazz;
+    private KrynnSQL krynnSQL;
 
-    public CacheableTableImpl(Database database, Class<T> clazz) {
-        this.table = new TableImpl<>(database, clazz);
+    public CacheableTableImpl(KrynnSQL krynnSQL, Database database, Class<T> clazz) {
+        this.table = new TableImpl<>(krynnSQL, database, clazz);
+        this.krynnSQL = krynnSQL;
         this.clazz = clazz;
         this.primaryKey = KrynnSQL.getCompiler().findOrCreate(clazz).primaryKey();
     }
@@ -69,7 +71,7 @@ public class CacheableTableImpl<T> implements CacheableTable<T> {
     public T cachedQuery(Object key) {
         if(this.cacheMap.containsKey(key)) return this.cacheMap.get(key);
 
-        try(Connection connection = KrynnSQL.getConnection()) {
+        try(Connection connection = krynnSQL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(String.format(Query.SELECT_OBJECT, name(), primaryKey.name()));
             statement.setObject(1, key);
             //Maybe stupid...

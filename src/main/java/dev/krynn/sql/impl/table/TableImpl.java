@@ -37,13 +37,16 @@ public class TableImpl<T> implements Table<T> {
 
     private Database database;
 
-    public TableImpl(Database database, Class<T> clazz) {
+    private KrynnSQL krynnSQL;
+
+    public TableImpl(KrynnSQL krynnSQL, Database database, Class<T> clazz) {
         this.database = database;
         this.clazz = clazz;
+        this.krynnSQL = krynnSQL;
     }
 
     public List<T> query(String statement) {
-        try(Connection connection = KrynnSQL.getConnection()) {
+        try(Connection connection = krynnSQL.getConnection()) {
             if(KrynnSQL.getCompiler().findTemplate(clazz) == null) {
                 KrynnSQL.getCompiler().compile(clazz);
             }
@@ -64,7 +67,7 @@ public class TableImpl<T> implements Table<T> {
     }
 
     public void update(String query) {
-        try(Connection connection = KrynnSQL.getConnection()) {
+        try(Connection connection = krynnSQL.getConnection()) {
             connection.prepareStatement(query).executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +76,7 @@ public class TableImpl<T> implements Table<T> {
 
     public void update(T type) {
         Type objectType = TypeToken.of(clazz).getType();
-        try(Connection connection = KrynnSQL.getConnection()) {
+        try(Connection connection = krynnSQL.getConnection()) {
             if(KrynnSQL.getCompiler().findTemplate(objectType) == null) {
                 KrynnSQL.getCompiler().compile(type.getClass());
             }

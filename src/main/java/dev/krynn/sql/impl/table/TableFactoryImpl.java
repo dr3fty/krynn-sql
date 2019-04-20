@@ -34,15 +34,18 @@ public class TableFactoryImpl implements TableFactory {
 
     private DatabaseConnection databaseConnection;
 
+    private KrynnSQL krynnSQL;
+
     private List<String> tables = new ArrayList<>();
 
-    public TableFactoryImpl(DatabaseConnection connection) {
+    public TableFactoryImpl(KrynnSQL krynnSQL, DatabaseConnection connection) {
         this.databaseConnection = connection;
+        this.krynnSQL = krynnSQL;
     }
 
     @Override
     public <T> Table<T> get(Database database, Class<T> type) {
-        return new TableImpl<>(database, type);
+        return new TableImpl<>(krynnSQL, database, type);
     }
 
     @Override

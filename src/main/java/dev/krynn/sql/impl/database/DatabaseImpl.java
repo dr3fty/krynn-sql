@@ -27,14 +27,16 @@ import java.util.Map;
 public class DatabaseImpl implements Database {
 
     private String name;
+    private KrynnSQL krynnSQL;
 
-    public DatabaseImpl(String name) {
+    public DatabaseImpl(KrynnSQL krynnSQL, String name) {
         this.name = name;
+        this.krynnSQL = krynnSQL;
     }
 
     @Override
     public <T> Table<T> table(Class<T> type) {
-        return KrynnSQL.getTableFactory().getOrCreate(this, type);
+        return krynnSQL.getTableFactory().getOrCreate(this, type);
     }
 
     @Override

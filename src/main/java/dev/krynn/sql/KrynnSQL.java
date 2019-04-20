@@ -34,38 +34,38 @@ import java.sql.SQLException;
 
 public class KrynnSQL {
 
-    private static Compiler compiler = new CompilerImpl();
-    private static DatabaseConnection connection = new DatabaseConnectionImpl();
-    private static DatabaseFactory databaseFactory;
-    private static TableFactory tableFactory;
+    private static final Compiler COMPILER = new CompilerImpl();
+    private DatabaseConnection connection = new DatabaseConnectionImpl();
+    private DatabaseFactory databaseFactory;
+    private TableFactory tableFactory;
 
-    public static void initialize(HikariConfig config) {
+    public KrynnSQL(HikariConfig config) {
         connection.config(config);
-        databaseFactory = new DatabaseFactoryImpl(connection);
-        tableFactory = new TableFactoryImpl(connection);
+        databaseFactory = new DatabaseFactoryImpl(this, connection);
+        tableFactory = new TableFactoryImpl(this, connection);
     }
 
-    public static Database getDatabase(String name) {
+    public Database getDatabase(String name) {
         return databaseFactory.getOrCreate(name);
     }
 
-    public static <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives) {
-        compiler.registerDataCompiler(dataCompiler, primitives);
+    public <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives) {
+        COMPILER.registerDataCompiler(dataCompiler, primitives);
     }
 
-    public static Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return connection.connection();
     }
 
     public static Compiler getCompiler() {
-        return compiler;
+        return COMPILER;
     }
 
-    public static TableFactory getTableFactory() {
+    public TableFactory getTableFactory() {
         return tableFactory;
     }
 
-    public static DatabaseFactory getDatabaseFactory() {
+    public DatabaseFactory getDatabaseFactory() {
         return databaseFactory;
     }
 }

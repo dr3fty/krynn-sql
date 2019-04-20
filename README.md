@@ -9,6 +9,35 @@ Simple java framework like ORM to build sql requests, based on annotations.
 
 For the full list check [Projects](https://github.com/Oskarr1239/krynn-sql/projects/3).
 
+## Example
+```java
+@Table("users")
+public class User {
+    
+    @Column
+    @PrimaryKey
+    private UUID uuid; 
+    
+    @Column
+    private String name;
+
+    public User(UUID uuid, String name) {
+        this.uuid = uuid;
+        this.name = name;
+    }
+}
+```
+
+```java
+KrynnSQL krynnSQL = new KrynnSQL(yourHikariConfig);
+
+Database database = krynnSQL.getDatabase("krynn");
+Table<User> table = database.table(User.class);
+
+User user = new User(UUID.randomUUID(), "testuser");
+table.update(user);
+```
+
 ## License
 The Krynn-SQL is released under version 2.0 of the [Apache License](https://www.apache.org/licenses/LICENSE-2.0).
 
