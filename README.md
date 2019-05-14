@@ -35,7 +35,14 @@ Database database = krynnSQL.getDatabase("krynn");
 Table<User> table = database.table(User.class);
 
 User user = new User(UUID.randomUUID(), "testuser");
+
+//Insert / Update user
 table.update(user);
+
+//Query users
+List<User> users = table.query("SELECT * FROM {table}");
+
+
 ```
 
 ## License
