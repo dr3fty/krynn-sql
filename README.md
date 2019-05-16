@@ -1,4 +1,4 @@
-# Krynn-SQL [![][travis img]][travis] [![][license img]][license] [![][discord img]][discord]
+# Krynn-SQL [![][travis img]][travis] [![][license img]][license] [![][discord img]][discord] [![CodeFactor](https://www.codefactor.io/repository/github/oskarr1239/krynn-sql/badge)](https://www.codefactor.io/repository/github/oskarr1239/krynn-sql)
 
 ## About
 Simple java framework like ORM to build sql requests, based on annotations.
