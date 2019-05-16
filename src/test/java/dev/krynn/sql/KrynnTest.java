@@ -16,17 +16,10 @@
 
 package dev.krynn.sql;
 
-import com.zaxxer.hikari.HikariConfig;
 import dev.krynn.sql.compiler.Compiler;
 import dev.krynn.sql.compiler.data.DataCompiler;
-import dev.krynn.sql.database.Database;
 import dev.krynn.sql.impl.compiler.CompilerImpl;
-import dev.krynn.sql.table.Table;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

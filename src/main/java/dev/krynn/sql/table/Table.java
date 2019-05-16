@@ -29,6 +29,8 @@ public interface Table<T> {
 
     void update(T type);
 
+    void delete(T type);
+
     String name();
 
 }

@@ -29,6 +29,7 @@ import dev.krynn.sql.impl.compiler.exception.CompilerException;
 import dev.krynn.sql.impl.compiler.field.CompiledFieldImpl;
 import org.reflections.ReflectionUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
@@ -61,7 +62,6 @@ public class CompilerImpl implements Compiler {
         if(!clazz.isAnnotationPresent(Table.class)) {
             throw new CompilerException();
         }
-
         Map<String, CompiledField> compiledFieldMap = new HashMap<>();
 
         ReflectionUtils.getFields(clazz, input -> Objects.requireNonNull(input).isAnnotationPresent(Column.class)).forEach(field -> {
@@ -148,11 +148,11 @@ public class CompilerImpl implements Compiler {
     }
 
     @Override
-    public <T> CompiledTemplate findOrCreate(Class<T> clazz) {
-        if(findTemplate(clazz) == null) {
-            compile(clazz);
+    public CompiledTemplate findOrCreate(Type type) {
+        if(findTemplate(type) == null) {
+            compile(type.getClass());
         }
-        return findTemplate(clazz);
+        return findTemplate(type);
     }
 
     @Override

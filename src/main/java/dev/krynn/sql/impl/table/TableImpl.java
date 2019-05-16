@@ -18,6 +18,7 @@ package dev.krynn.sql.impl.table;
 
 import com.google.common.reflect.TypeToken;
 import dev.krynn.sql.KrynnSQL;
+import dev.krynn.sql.compiler.CompiledTemplate;
 import dev.krynn.sql.database.Database;
 import dev.krynn.sql.table.Table;
 import dev.krynn.sql.util.QueryUtil;
@@ -81,6 +82,15 @@ public class TableImpl<T> implements Table<T> {
                 KrynnSQL.getCompiler().compile(type.getClass());
             }
             QueryUtil.update(this.database.name(), connection, type, objectType).executeUpdate();
+        } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete(T type) {
+        try(Connection connection = krynnSQL.getConnection()) {
+            QueryUtil.delete(this.database.name(), connection, type, clazz).executeUpdate();
         } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
         }

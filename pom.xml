@@ -20,6 +20,7 @@
         <junit.version>5.5.0-M1</junit.version>
         <hikaricp.version>3.3.1</hikaricp.version>
         <mysql.version>8.0.15</mysql.version>
+        <mariadb4j.version>2.4.0</mariadb4j.version>
     </properties>
 
     <build>
@@ -66,6 +67,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.vorburger.mariaDB4j</groupId>
+            <artifactId>mariaDB4j</artifactId>
+            <version>${mariadb4j.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

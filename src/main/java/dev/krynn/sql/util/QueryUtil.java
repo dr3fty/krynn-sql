@@ -84,6 +84,20 @@ public class QueryUtil {
         return connection.prepareStatement(String.format(Query.CREATE_TABLE, name, types));
     }
 
+    public static <T> PreparedStatement delete(String database, Connection connection, T object, Type type) throws IllegalAccessException, SQLException {
+        CompiledTemplate template = KrynnSQL.getCompiler().findOrCreate(type);
+
+        CompiledField primaryKey = template.primaryKey();
+        Object keyValue = primaryKey.field().get(object);
+
+        PreparedStatement statement = connection.prepareStatement(String.format(
+                Query.DELETE_OBJECT,
+                database + "." + template.table(),
+                primaryKey.name()));
+        statement.setObject(1, keyValue, primaryKey.numericType());
+        return statement;
+    }
+
     @SuppressWarnings("unchecked")
     private static <T, I> T tryCompile(DataCompiler<T, I> dataCompiler, Object o) {
         return dataCompiler.compile((I) o);

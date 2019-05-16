@@ -108,6 +108,11 @@ public class CacheableTableImpl<T> implements CacheableTable<T> {
     }
 
     @Override
+    public void delete(T type) {
+        this.table.delete(type);
+    }
+
+    @Override
     public String name() {
         return this.table.name();
     }

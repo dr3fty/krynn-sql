@@ -29,7 +29,7 @@ public interface Compiler {
 
     <T, I> void registerDataCompiler(DataCompiler<T, I> dataCompiler, Type... primitives);
 
-    <T> CompiledTemplate findOrCreate(Class<T> clazz);
+    <T> CompiledTemplate findOrCreate(Type type);
 
     CompiledTemplate findTemplate(Type type);
 

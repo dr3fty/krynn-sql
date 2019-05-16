@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package dev.krynn.sql.query;
+package dev.krynn.sql.annotations;
 
-public class Query {
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    public static final String CREATE_DATABASE = "CREATE DATABASE IF NOT EXISTS %s";
-
-    public static final String CREATE_OR_UPDATE = "INSERT INTO %s (%s) VALUES(%s) ON DUPLICATE KEY UPDATE %s;";
-
-    public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS %s (%s)";
-
-    public static final String SELECT_OBJECT = "SELECT * FROM %s WHERE %s = ?";
-
-    public static final String DELETE_OBJECT = "DELETE FROM %s WHERE %s = ?";
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface MegaAnnotationName {
 }
